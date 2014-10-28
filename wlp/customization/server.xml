@@ -1,0 +1,243 @@
+<server description="hsf2 test server ">
+
+    <!-- Enable features -->
+    <featureManager>
+     <!-- aus http://www.adam-bien.com/roller/abien/entry/starting_websphere_with_java_ee -->
+     <feature>webProfile-6.0</feature>
+	 <feature>monitor-1.0</feature>
+	 <feature>localConnector-1.0</feature>
+     <feature>jsp-2.2</feature>
+	 <feature>jndi-1.0</feature>
+    	<feature>jdbc-4.0</feature>
+		<feature>managedBeans-1.0</feature>
+		<feature>jpa-2.0</feature>
+		<feature>serverStatus-1.0</feature>
+		<feature>servlet-3.0</feature>
+		<feature>concurrent-1.0</feature>
+		<feature>jmsMdb-3.1</feature>
+		<feature>ejbLite-3.1</feature>
+		<feature>cdi-1.0</feature>
+		<feature>jaxb-2.2</feature>
+		<feature>beanValidation-1.0</feature>
+		<feature>jaxrs-1.1</feature>
+	</featureManager>
+    <httpEndpoint id="defaultHttpEndpoint"
+                  host="*"
+                  httpPort="9081"
+                  httpsPort="9443" />
+                  
+                  <!--  httpOptionsRef="${server.config.dir}"/> -->
+
+<!--	<webApplication name="uitechpreview" 
+				location="uitechpreview.war">
+	</webApplication>
+-->
+    <featureManager>
+        <feature>ssl-1.0</feature>
+    </featureManager>
+    <keyStore id="defaultKeyStore" password="{xor}KDMvKDMv" />
+
+    <logging traceSpecification="de.haspa.*=all"/>
+	<!-- datasources -->
+	<fileset id="OracleFileset" file="/customization/ojdbc6.jar" />
+	<library id="OracleLibrary" filesetRef="OracleFileset" />
+	<jdbcDriver id="oracle" libraryRef="OracleLibrary" />
+	<dataSource jdbcDriver="oracle" jndiName="jdbc/noDrvier" />
+
+	<library id="MySqlLibrary">
+    	<fileset dir="/customization/" 
+             includes="mysql-connector-java-5.1.26-bin.jar"/>
+    </library>
+    
+	<jdbcDriver id="mysql" libraryRef="MySqlLibrary" 
+					javax.sql.XADataSource="com.mysql.jdbc.jdbc2.optional.JDBC4MysqlXAConnection"/>
+                                             
+	<dataSource id="DShsf" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/HSF" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+
+	<dataSource id="DShsfds" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/HSFDS" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSdebitorenbearbeitung" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/debitorenbearbeitung" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>	
+	<dataSource id="DSelba" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/elba" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>		
+	<dataSource id="DSmitarbeiter" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/mitarbeiter" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>		
+	<dataSource id="DSanlageberatung" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/anlagebearbeitung" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>		
+	<dataSource id="DSrevilog" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/revilog" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>		
+	<dataSource id="DSrevilog_nonjta" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/revilog_nonjta" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>		
+	<dataSource id="DSmeldung" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/meldung" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>		
+	<dataSource id="DSdruck" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/druck" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DShppuserdb" 
+				jdbcDriver="oracle"
+				jndiName="jdbc/hppuserdb" >
+		<properties databaseName="progvs" serverName="89.0.10.59" portNumber="1521" />
+	</dataSource>
+	<dataSource id="DShpp" 
+				jdbcDriver="oracle"
+				jndiName="jdbc/hpp" >
+		<properties databaseName="progvs" serverName="89.0.10.59" portNumber="1521" />
+	</dataSource>
+	<dataSource id="DSschluesseltabelle" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/schluesseltabelle" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSrevilogkonfig" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/revilogkonfig" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="Drevilogkonfig_nonjta" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/revilogkonfig_nonjta" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSserviceregistry" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/serviceregistry" 
+				isolationLevel="TRANSACTION_READ_COMMITTED" statementCacheSize="20">
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSserviceregistry_nonjta" 
+				jndiName="jdbc/serviceregistry_nonjta"
+				jdbcDriver="mysql"
+				isolationLevel="TRANSACTION_READ_COMMITTED" statementCacheSize="20">
+		<connectionManager maxPoolSize="20" minPoolSize="5" 
+                       connectionTimeout="10s" agedTimeout="30m"/>
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSmietfachvorbenachrichtigung" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/mietfachvorbenachrichtigung" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSgefo" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/gefo" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSdekadepot" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/dekadepot" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSueberziehung" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/ueberziehung" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSrisikoprofil" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/risikoprofil" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSkontakte" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/kontakte" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSmandatsverwaltung" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/mandatsverwaltung" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSmandat" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/mandat" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSmahnverfahren" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/mahnverfahren" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	<dataSource id="DSwertpapier" 
+				jdbcDriver="mysql"
+				jndiName="jdbc/wertpapier" >
+		<properties databaseName="hsf" serverName="db" portNumber="3306" user="hsf" password="hsf" />
+	</dataSource>
+	
+	<application context-root="/service/registry" type="war" id="registry"
+    location="registry-service.war" name="registry"/>
+
+<!--	<application name="registry-service" location="registry-service.war">
+		<classloader delegation="parentLast" commonLibraryRef="global" />
+	</application>
+	-->
+	<!-- jndi settings -->
+    <jndiEntry jndiName="de.haspa.hsf.registry.url" value="http://localhost:9081/service/registry/" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.hsf.registry.service.url" value="http://localhost:9081" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.hsf.logging.service.mongo.url" value="mongodb://localhost:27017/test.logging" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.mitarbeiter.ldap.url" value="ldap://vmpg10haspa:389" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.mitarbeiter.ldap.dc" value="DC=int-hsp,DC=intranet" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.mitarbeiter.ldap.user" value="SVC-LDAP-READER" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.mitarbeiter.ldap.pass" value="Hamburg01" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.mitarbeiter.ldap.timeout" value="1000" type="java.lang.String"/>
+    <jndiEntry jndiName="java:/de.haspa.gp.mitarbeiter.ldap.bind" value="CN=%s,%s" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.kunde.finanzstatus.soap.url" value="http://localhost:8088/mockHSFANB_FS_BNDG" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.kunde.endpoint.url" value="http://localhost:8088/mockHSFANB_GP_BNDG" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.kunde.endpoint.httpusername" value="123456" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.kunde.endpoint.httppassword" value="xxxxxx" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.kunde.tc.endpoint.url" value="http://localhost:8088/mockHSFANB_TC_KONTO_BNDG" type="java.lang.String"/>
+    <jndiEntry jndiName="de.haspa.gp.kunde.mandat.endpoint.url" value="https://stein.efis3.de/SEPAMandate" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.mandat.endpoint.httpusername" value="12345" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.mandat.endpoint.httppassword" value="xxxxx" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.mandat.mandat-jms.mail.receiver" value="ewer@hartter.com" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.mandat.mandat-jms.mail.sender" value="admin@hartter.com" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.mandat.mandat-jms.maxMandatVerarbeitung" value="5" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.konto.debitoren.debitorenmanagement.ladeprozess.user" value="888926" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.konto.ibanbic.endpoint.url" value="https://stein.efis3.de/IBANTest" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.konto.mahnwesen.mahnverfahren.endpoint.url" value="http://localhost:8088/mockDEBMWSBNDG" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.konto.mahnwesen.mahnverfahren.endpoint.httpusername" value="ewer" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.konto.mahnwesen.mahnverfahren.dwh.exportoutputdir" value="/home/ewer/tmp" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.konto.mahnwesen.mahnverfahren.dwh.maxdbresult" value="100" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.konto.mahnwesen.mahnverfahren.endpoint.httppassword" value="ewer" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.anlage.beratung.risikoprofil.endpoint.url65" value="http://localhost:8088/mockMY3EIS65KundenprofilSoapBinding" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.anlage.beratung.risikoprofil.endpoint.url64" value="http://localhost:8088/mockMY3EIS64RisikoprofilSoapBinding" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.anlage.wp.depot.endpoint.url" value="http://localhost:8088/mockMY3EIS61WertpapierbestandSoapBinding" type="java.lang.String"/>
+   <jndiEntry jndiName="HttpUsername" value="h488224" type="java.lang.String"/>
+   <jndiEntry jndiName="HttpPassword" value="Hamburg01" type="java.lang.String"/>
+   <jndiEntry jndiName="beratungsprotokoll-service/cleanupTime" value="00:00" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.hartter.vsopeaihsf.eaiconnect" value="{&quot;clientId&quot;:&quot;vsopeaihsf&quot;,&quot;oms&quot;:&quot;oms:clientuser=888189;oms.printprogvs=http://217.64.168.168:2718;oms.xmlsave=1;oms.pdftest=true;oms.validxml=true;oms.fieldcheck=true;oms.disableweb=true;oms.parPaperPrint=true;oms.webtimeout=170000;oms.fieldstop=false&quot;,&quot;db&quot;:&quot;db:connectionurl=jndi:jdbc/hpp;jdbcdriver=oracle.jdbc.driver.OracleDriver;autocommit=false;version=oracle/1.0&quot;,&quot;mail&quot;:&quot;mail:mailuser=haspa.hpqc;mailpass=aHBxYzJtYW50aXM=;imapserver=mail.hartter.com;smtpserver=mail.hartter.com&quot;,&quot;sap&quot;:&quot;sap:host=/H/10.21.91.19/S/3299/H/10.132.177.13;user=reschm;password=Oberwart2013?;jcorepcacheuser=RFC_PORTAL;jcorepcachepassword=Schweden_011;systemnumber=00;clientid=281;version=am/6.0;language=DE;conntyp=jco3;customer=has;product=gvs;release=1.0&quot;,&quot;removePoolFieldFlag&quot;:&quot;false&quot;}" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.pr.anlage.wp.wertpapier.endpoint.url67" value="http://localhost:8088/mockMY3EIS67WertpapiergattungSoapBinding" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.interessent.endpoint.url" value="http://localhost:8088/mockWebKbpKusPortBinding" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.interessent.endpoint.httpusername" value="12345" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.interessent.endpoint.httppassword" value="xxxxx" type="java.lang.String"/>
+   <jndiEntry jndiName="de.haspa.gp.kunde.interessent.mandant" value="hionl1" type="java.lang.String"/>
+</server>
